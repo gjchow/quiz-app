@@ -13,4 +13,10 @@ class Quiz:
             options = self.info.get_defs(OPTIONS, word)
             print(word)
             for num, option in enumerate(options):
-                print(str(num) + ': ' + option)
+                print(str(num + 1) + ': ' + option)
+            answer = input()
+            correct = self.info.check_answer(word, answer)
+            if correct:
+                print('Correct!')
+            else:
+                print('Incorrect!')

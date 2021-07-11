@@ -8,7 +8,12 @@ class Information:
     def get_info(self) -> None:
         # TODO fill out info
         # we can figure out using API or text file
-        pass
+        self.info['a'] = ['a']
+        self.info['b'] = ['b']
+        self.info['c'] = ['c']
+        self.info['d'] = ['d']
+        self.info['e'] = ['e']
+
 
     def get_word(self) -> str:
         # return a random key from info
