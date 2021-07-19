@@ -29,7 +29,10 @@ class Information:
                     defs.append(data[1:])
 
             if len(word) != 0 and len(defs) != 0:
-                self.info[word] = defs
+                if word in self.info:
+                    self.info[word].extend(defs)
+                else:
+                    self.info[word] = defs
 
     def get_word(self) -> str:
         # return a random key from info
@@ -64,3 +67,15 @@ class Information:
             return False
         else:
             return True
+
+#     def add_data(self):
+#         for word in self.info:
+#             new = Question(question_text=word, add_date=timezone.now())
+#             for defs in self.info[word]:
+#                 new.answer_set.create(answer_text=defs)
+#             new.save()
+#
+#
+# info = Information()
+# info.get_info()
+# info.add_data()

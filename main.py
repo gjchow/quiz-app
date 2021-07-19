@@ -1,5 +1,5 @@
 from information import Information
-from quiz import Quiz_MC, Quiz_Ans
+from quiz import Quiz_MC
 
 if __name__ == "__main__":
     information = Information()
