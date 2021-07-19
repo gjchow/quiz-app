@@ -1,0 +1,14 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
+<!--<a href="{% url 'polls:index' %}" class="button">Home</a>-->
+
+<div class="center">
+    <p class="question">{{ choices.0 }}</p>
+    <form id="form1" action="{% url 'polls:check-ans' given=choices.0 quiz='text' %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="ans" class="text-ans" autofocus>
+        <input type="submit" class="button text-submit" value="Submit">
+    </form>
+</div>

@@ -1,0 +1,57 @@
+.question {
+    border-style: none;
+    color: #8CBED6;
+    text-align: center;
+    text-decoration: none;
+    font-size: 36px;
+    font-family: "Arial";
+    margin: 15px;
+}
+
+button, .button {
+    background-color: white;
+    border-style: solid;
+    border-color: #8CBED6;
+    color: #8CBED6;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    border-width: thin;
+    font-family: "Arial";
+}
+
+button:hover, .button:hover {
+    background-color: #8CBED6;
+    color: white;
+}
+
+.center {
+    text-align: center;
+    margin: auto;
+}
+
+.mc-button {
+    width: 50%;
+    margin: 2px;
+}
+
+.text-ans{
+    width: 40%;
+    font-size: 16px;
+    padding: 15px;
+    background-color: white;
+    border-style: solid;
+    border-color: #8CBED6;
+    border-width: thin;
+    color: #8CBED6;
+    margin: 2px;
+}
+
+.text-ans:focus{
+    outline: none;
+}
+
+.text-submit{
+    width: 10%;
+}

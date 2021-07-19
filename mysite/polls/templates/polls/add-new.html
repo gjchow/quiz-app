@@ -1,0 +1,12 @@
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
+<form  enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    <input type="file" name="file">
+    <input type="submit" class="button text-submit" value="Submit">
+</form>
+{% if num %}
+    <p>{{ num }} words successfully added</p>
+{% endif %}
