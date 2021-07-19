@@ -1,7 +1,24 @@
-<h1>{{ question.question_text }}</h1>
-<ul>
-    {% for choice in question.choice_set.all %}
-        <li>{{ choice.choice_text }} -- {{ choice.votes }} vote{{ choice.votes|pluralize }}</li>
-    {% endfor %}
-</ul>
-<a href="{% url 'polls:detail' question.id %}">Vote again?</a>
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
+{% for question in page_obj %}
+    {{ question }}<br>
+{% endfor %}
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="button">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="button">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="button">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="button">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>

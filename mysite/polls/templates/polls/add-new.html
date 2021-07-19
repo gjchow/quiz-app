@@ -4,8 +4,9 @@
 
 <form  enctype="multipart/form-data" method="post">
     {% csrf_token %}
-    <input type="file" name="file">
-    <input type="submit" class="button text-submit" value="Submit">
+    <label for="upload" class="button upload">Upload</label>
+    <input type="file" id="upload" name="file" hidden>
+    <input type="submit" class="button" value="Submit">
 </form>
 {% if num %}
     <p>{{ num }} words successfully added</p>
