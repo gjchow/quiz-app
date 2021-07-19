@@ -1,10 +1,11 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
-
-{% for question in page_obj %}
-    {{ question }}<br>
-{% endfor %}
+<div class="center">
+    {% for question in page_obj %}
+    <a href="{% url 'polls:detail' question.id %}"  class="button mc-button">{{ question }}</a><br>
+    {% endfor %}
+</div>
 <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}

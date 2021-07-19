@@ -1,5 +1,3 @@
-import random
-
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -8,6 +6,8 @@ from django.views import generic
 from . import forms
 from .information import Information
 from .models import Question
+
+#8CBED6
 
 
 class IndexView(generic.TemplateView):

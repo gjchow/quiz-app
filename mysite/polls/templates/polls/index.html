@@ -1,9 +1,11 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
-<div class="center">
-    <a href="{% url 'polls:quiz-mc' %}" class="button">MC</a>
-    <a href="{% url 'polls:quiz-text' %}" class="button">Text</a>
-    <a href="{% url 'polls:add-new' %}" class="button">Add</a>
-    <a class="button">View</a>
+<div class="full">
+    <div class="center">
+        <a href="{% url 'polls:quiz-mc' %}" class="button">MC</a>
+        <a href="{% url 'polls:quiz-text' %}" class="button">Text</a>
+        <a href="{% url 'polls:add-new' %}" class="button">Add</a>
+        <a href="{% url 'polls:list' %}" class="button">View</a>
+    </div>
 </div>

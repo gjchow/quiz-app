@@ -1,28 +1,30 @@
 .question {
     border-style: none;
-    color: #8CBED6;
+    color: black;
     text-align: center;
     text-decoration: none;
     font-size: 36px;
     font-family: "Arial";
     margin: 15px;
+    text-align: center;
 }
 
 button, .button {
     background-color: white;
     border-style: solid;
-    border-color: #8CBED6;
-    color: #8CBED6;
+    border-color: black;
+    color: black;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     font-size: 16px;
     border-width: thin;
     font-family: "Arial";
+    text-align: center;
 }
 
 button:hover, .button:hover {
-    background-color: #8CBED6;
+    background-color: black;
     color: white;
 }
 
@@ -42,9 +44,9 @@ button:hover, .button:hover {
     padding: 15px;
     background-color: white;
     border-style: solid;
-    border-color: #8CBED6;
+    border-color: black;
     border-width: thin;
-    color: #8CBED6;
+    color: black;
     margin: 2px;
 }
 
@@ -54,4 +56,9 @@ button:hover, .button:hover {
 
 .text-submit{
     width: 10%;
+}
+
+.full{
+    width: 100%;
+    height: 100%;
 }
