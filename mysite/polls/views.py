@@ -21,7 +21,7 @@ class DetailView(generic.DetailView):
 
 class ResultsView(generic.ListView):
     model = Question
-    paginate_by = 2
+    paginate_by = 10
     template_name = 'polls/results.html'
 
 

@@ -1,25 +1,33 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
-<div class="center">
-    {% for question in page_obj %}
-    <a href="{% url 'polls:detail' question.id %}"  class="button mc-button">{{ question }}</a><br>
-    {% endfor %}
+<div class="center mc-div">
+    <div class="options">
+        {% for question in page_obj %}
+        <a href="{% url 'polls:detail' question.id %}" class="link button full">{{ question }}</a><br>
+        {% endfor %}
+    </div>
 </div>
-<div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-            <a href="?page=1" class="button">&laquo; first</a>
-            <a href="?page={{ page_obj.previous_page_number }}" class="button">previous</a>
-        {% endif %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="button link">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="button link">previous</a>
+            {% else %}
+                <a class="button link">&laquo; first</a>
+                <a class="button link">previous</a>
+            {% endif %}
 
-        <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            <span class="current page">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="button link">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="button link">last &raquo;</a>
+            {% else %}
+                <a class="button link">next</a>
+                <a class="button link" >last &raquo;</a>
+            {% endif %}
         </span>
-
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}" class="button">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}" class="button">last &raquo;</a>
-        {% endif %}
-    </span>
-</div>
+    </div>
