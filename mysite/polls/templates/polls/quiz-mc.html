@@ -2,8 +2,8 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 
-<div class="full">
-    <div class="center mc-div">
+<div class="full center">
+    <div class="mc-div">
         <p class="question">{{ word }}</p>
         <form action="{% url 'polls:check-ans' given=word quiz='mc' %}" method="post">
             {% csrf_token %}
