@@ -11,3 +11,7 @@ class TextForm(forms.Form):
 
 class FileForm(forms.Form):
     file = forms.FileField()
+
+
+class SearchForm(forms.Form):
+    search = forms.CharField()

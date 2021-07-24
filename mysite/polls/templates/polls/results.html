@@ -2,6 +2,13 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
 <div class="full center">
+    <div class="search">
+        <form action="{% url 'polls:list' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="search" class="text-ans">
+            <input type="submit" class="button text-submit" value="Search">
+        </form>
+    </div>
     <div class="options center mc-div">
         {% for question in page_obj %}
         <a href="{% url 'polls:detail' question.id %}" class="link button mc-button">{{ question }}</a>

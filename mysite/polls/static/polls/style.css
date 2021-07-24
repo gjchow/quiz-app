@@ -3,7 +3,7 @@
     color: black;
     text-align: center;
     text-decoration: none;
-    font-size: 36px;
+    font-size: 48px;
     font-family: "Arial";
     margin: 15px;
     text-align: center;
@@ -17,10 +17,9 @@ button, .button {
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 24px;
     border-width: thin;
     font-family: "Arial";
-    flex: auto;
 }
 
 button:hover, .button:hover {
@@ -53,7 +52,7 @@ button:hover, .button:hover {
 
 .text-ans{
     width: 75%;
-    font-size: 16px;
+    font-size: 24px;
     padding: 15px;
     background-color: white;
     border-style: solid;
@@ -89,7 +88,7 @@ button:hover, .button:hover {
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    font-size: 16px;
+    font-size: 24px;
     font-family: "Arial";
 }
 
@@ -97,5 +96,35 @@ button:hover, .button:hover {
     width: 100%;
     text-align: center;
     position: fixed;
-    bottom: 10%;
+    bottom: 0;
+    margin: 10px;
+}
+
+.card{
+    background-color: white;
+    border-style: solid;
+    border-color: black;
+    color: black;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 24px;
+    border-width: thin;
+    font-family: "Arial";
+    width: 50%;
+    height: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.item{
+    display: inline-block;
+    text-align:left;
+}
+
+.search{
+    width: 50%;
+    text-align: center;
+    position: fixed;
+    top: 0;
+    margin: 10px;
 }

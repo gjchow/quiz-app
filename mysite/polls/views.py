@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -23,6 +24,38 @@ class ResultsView(generic.ListView):
     model = Question
     paginate_by = 10
     template_name = 'polls/results.html'
+
+
+def listing(request):
+    if request.method == 'POST':
+        form = forms.SearchForm(request.POST)
+        if form.is_valid():
+            search = form.cleaned_data["search"]
+            print(search)
+            # question_list = Question.objects.filter(question_text__contains=search)
+            return HttpResponseRedirect(reverse('polls:search', args=(search)))
+        else:
+            question_list = Question.objects.all()
+    else:
+        question_list = Question.objects.all()
+    paginator = Paginator(question_list, 10)
+    template_name = 'polls/results.html'
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'page_obj': page_obj}
+
+    return render(request, template_name, context)
+
+
+def search_list(request, search):
+    question_list = Question.objects.filter(question_text__contains=search)
+    paginator = Paginator(question_list, 10)
+    template_name = 'polls/results.html'
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'page_obj': page_obj}
+
+    return render(request, template_name, context)
 
 
 def quiz_mc(request):
