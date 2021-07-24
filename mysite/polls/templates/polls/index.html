@@ -1,8 +1,8 @@
 {% load static %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
-<div class="full">
-    <div class="center">
+<div class="full center">
+    <div class="">
         <a href="{% url 'polls:quiz-mc' %}" class="button">MC</a>
         <a href="{% url 'polls:quiz-text' %}" class="button">Text</a>
         <a href="{% url 'polls:add-new' %}" class="button">Add</a>

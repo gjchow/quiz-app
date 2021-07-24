@@ -1,4 +1,14 @@
-{{ question.question_text }}
-{% for answer in question.answer_set.all %}
-    {{ answer }}
-{% endfor %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+
+<div class="full center">
+    <div class="card">
+        <p class="question">{{ question.question_text }}</p>
+        <ul class="item">
+        {% for answer in question.answer_set.all %}
+            <li>{{ answer }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+</div>
