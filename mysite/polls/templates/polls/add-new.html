@@ -8,6 +8,9 @@
     <input type="file" id="upload" name="file" hidden>
     <input type="submit" class="button" value="Submit">
 </form>
+{% if created %}
+    <p>{{ created }} words successfully added</p>
+{% endif %}
 {% if num %}
-    <p>{{ num }} words successfully added</p>
+    <p>{{ num }} words successfully changed</p>
 {% endif %}

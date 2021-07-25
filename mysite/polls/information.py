@@ -76,19 +76,23 @@ class Information:
         return False
 
     def add_data(self, info):
+        n = 0
+        c = 0
         for word in info:
             if Question.objects.filter(question_text=word).exists():
                 new = Question.objects.filter(question_text=word)[0]
+                n += 1
             else:
                 new = Question(question_text=word)
                 new.save()
+                c += 1
             for defs in info[word]:
                 if not new.answer_set.all().filter(answer_text=defs).exists():
                     new.answer_set.create(answer_text=defs)
+        return n, c
 
     def handle_file(self, f):
         info = self.get_info_txt(f)
-        print(info)
-        # self.add_data(info)
-        return len(info)
+        n, c = self.add_data(info)
+        return n, c
 
