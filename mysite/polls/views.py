@@ -33,9 +33,9 @@ def listing(request):
             search = form.cleaned_data["search"]
             return HttpResponseRedirect(reverse('polls:search', args=(search,)))
         else:
-            question_list = Question.objects.all()
+            question_list = Question.objects.all().order_by('question_text')
     else:
-        question_list = Question.objects.all()
+        question_list = Question.objects.all().order_by('question_text')
     paginator = Paginator(question_list, 10)
     template_name = 'polls/results.html'
     page_number = request.GET.get('page')
@@ -46,7 +46,7 @@ def listing(request):
 
 
 def search_list(request, search):
-    question_list = Question.objects.filter(question_text__contains=search)
+    question_list = Question.objects.filter(question_text__contains=search).order_by('question_text')
     paginator = Paginator(question_list, 10)
     template_name = 'polls/results.html'
     page_number = request.GET.get('page')
@@ -101,7 +101,7 @@ def add_new(request):
     if request.method == 'POST':
         form = forms.FileForm(request.POST, request.FILES)
         if form.is_valid():
-            num = info.handle_file(request.FILES['file'])
-            context = {'num': num}
+            num, created = info.handle_file(request.FILES['file'])
+            context = {'num': num, 'created': created}
     print(context)
     return render(request, 'polls/add-new.html', context)
