@@ -31,9 +31,7 @@ def listing(request):
         form = forms.SearchForm(request.POST)
         if form.is_valid():
             search = form.cleaned_data["search"]
-            print(search)
-            # question_list = Question.objects.filter(question_text__contains=search)
-            return HttpResponseRedirect(reverse('polls:search', args=(search)))
+            return HttpResponseRedirect(reverse('polls:search', args=(search,)))
         else:
             question_list = Question.objects.all()
     else:

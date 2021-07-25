@@ -7,10 +7,10 @@ from .models import Question, Answer
 
 
 class Information:
-    def get_info(self):
-        # TODO fill out info
-        # we can figure out using API or text file
-        self.get_info_txt('test.txt')
+    # def get_info(self):
+    #     # fill out info
+    #     # we can figure out using API or text file
+    #     self.get_info_txt('test.txt')
 
     def get_info_txt(self, file):
         info = {}
@@ -24,11 +24,14 @@ class Information:
             if len(line) != 0 and line[0] == '+':
 
                 if len(word) != 0 and len(defs) != 0:
-                    info[word] = defs
+                    if word in info:
+                        info[word].extend(defs)
+                    else:
+                        info[word] = defs
                 word = line[1:]
                 defs = []
 
-            elif len(line) != 0 and line[0] == '-':
+            elif len(line) > 1 and line[0] == '-':
                 defs.append(line[1:])
 
         if len(word) != 0 and len(defs) != 0:
@@ -85,6 +88,7 @@ class Information:
 
     def handle_file(self, f):
         info = self.get_info_txt(f)
-        self.add_data(info)
+        print(info)
+        # self.add_data(info)
         return len(info)
 
