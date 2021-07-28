@@ -5,10 +5,14 @@
 <!--<a href="{% url 'polls:index' %}" class="button">Home</a>-->
 
 <div class="full center">
-    <p class="question">{{ choices.0 }}</p>
-    <form id="form1" action="{% url 'polls:check-ans' given=choices.0 quiz='text' %}" class="mc-div" method="post">
-        {% csrf_token %}
-        <input type="text" name="ans" class="text-ans" autofocus>
-        <input type="submit" class="button text-submit" value="Submit">
-    </form>
+    {% if word is not None %}
+        <p class="question">{{ choices.0 }}</p>
+        <form id="form1" action="{% url 'polls:check-ans' given=choices.0 quiz='text' %}" class="mc-div" method="post">
+            {% csrf_token %}
+            <input type="text" name="ans" class="text-ans" autofocus>
+            <input type="submit" class="button text-submit" value="Submit">
+        </form>
+    {% else %}
+        <p class="question">There are no questions added.</p>
+    {% endif %}
 </div>

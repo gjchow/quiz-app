@@ -11,7 +11,7 @@
     </div>
     <div class="options center mc-div">
         {% for question in page_obj %}
-        <a href="{% url 'polls:detail' question.id %}" class="link button mc-button">{{ question }}</a>
+            <a href="{% url 'polls:detail' question.id %}" class="link button mc-button">{{ question }}</a>
         {% endfor %}
     </div>
     <div class="pagination center">

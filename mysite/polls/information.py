@@ -44,7 +44,10 @@ class Information:
     def get_word(self, excl='') -> Question:
         # return a random key from info
         num = Question.objects.exclude(question_text=excl).count()
-        word = Question.objects.exclude(question_text=excl)[random.randrange(num)]
+        if num > 0:
+            word = Question.objects.exclude(question_text=excl)[random.randrange(num)]
+        else:
+            word = None
 
         return word
 

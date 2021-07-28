@@ -59,16 +59,22 @@ def search_list(request, search):
 def quiz_mc(request):
     info = Information()
     word = info.get_word()
-    choices = info.get_defs(4, word)
-    context = {'word': word, 'choices': choices}
+    if word is not None:
+        choices = info.get_defs(4, word)
+        context = {'word': word, 'choices': choices}
+    else:
+        context = {'word': word}
     return render(request, 'polls/quiz-mc.html', context)
 
 
 def quiz_text(request):
     info = Information()
     word = info.get_word()
-    choices = info.get_defs(1, word)
-    context = {'word': word, 'choices': choices}
+    if word is not None:
+        choices = info.get_defs(1, word)
+        context = {'word': word, 'choices': choices}
+    else:
+        context = {'word': word}
     return render(request, 'polls/quiz-text.html', context)
 
 

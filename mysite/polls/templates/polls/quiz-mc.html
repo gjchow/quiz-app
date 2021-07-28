@@ -4,12 +4,16 @@
 
 <div class="full center">
     <div class="mc-div">
-        <p class="question">{{ word }}</p>
-        <form action="{% url 'polls:check-ans' given=word quiz='mc' %}" method="post">
-            {% csrf_token %}
-            {% for choice in choices %}
-                <input type="submit" name="choice" class="button mc-button" value="{{ choice }}"><br>
-            {% endfor %}
-        </form>
+        {% if word is not None %}
+            <p class="question">{{ word }}</p>
+            <form action="{% url 'polls:check-ans' given=word quiz='mc' %}" method="post">
+                {% csrf_token %}
+                {% for choice in choices %}
+                    <input type="submit" name="choice" class="button mc-button" value="{{ choice }}"><br>
+                {% endfor %}
+            </form>
+        {% else %}
+            <p class="question">There are no questions added.</p>
+        {% endif %}
     </div>
 </div>
