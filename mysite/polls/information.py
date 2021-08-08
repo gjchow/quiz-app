@@ -78,6 +78,12 @@ class Information:
 
         return False
 
+    def get_ans_index(self, word: str,  answers: list[Answer]):
+        for i in range(len(answers)):
+            if self.check_answer(word, str(answers[i])):
+                return i
+        return -1
+
     def add_data(self, info):
         n = 0
         c = 0

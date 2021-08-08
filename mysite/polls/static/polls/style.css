@@ -128,3 +128,11 @@ button:hover, .button:hover {
     top: 0;
     margin: 10px;
 }
+
+.correct{
+    background-color: grey;
+}
+
+.disable{
+    pointer-events: none;
+}

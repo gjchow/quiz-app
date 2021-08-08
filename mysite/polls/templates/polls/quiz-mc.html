@@ -1,15 +1,19 @@
 {% load static %}
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
 
 <link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+<script src="{% static 'scripts/main.js' %}"></script>
 
 <div class="full center">
     <div class="mc-div">
         {% if word is not None %}
             <p class="question">{{ word }}</p>
-            <form action="{% url 'polls:check-ans' given=word quiz='mc' %}" method="post">
+            <form action="{% url 'polls:check-ans' given=word quiz='mc' %}" method="post" id="question-form">
                 {% csrf_token %}
                 {% for choice in choices %}
-                    <input type="submit" name="choice" class="button mc-button" value="{{ choice }}"><br>
+                    <input type="button" name="choice" class="button mc-button" value="{{ choice }}" id="{{ forloop.counter0 }}">
                 {% endfor %}
             </form>
         {% else %}
@@ -17,3 +21,5 @@
         {% endif %}
     </div>
 </div>
+
+{{ ans_ind|json_script:"ans" }}

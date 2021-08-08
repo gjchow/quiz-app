@@ -61,7 +61,8 @@ def quiz_mc(request):
     word = info.get_word()
     if word is not None:
         choices = info.get_defs(4, word)
-        context = {'word': word, 'choices': choices}
+        ans_ind = info.get_ans_index(word, choices)
+        context = {'word': word, 'choices': choices, 'ans_ind': ans_ind}
     else:
         context = {'word': word}
     return render(request, 'polls/quiz-mc.html', context)
