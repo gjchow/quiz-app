@@ -2,8 +2,11 @@ $(document).ready(function(){
     const ans = JSON.parse(document.getElementById('ans').textContent);
     console.log(ans)
     $(".button").click(function(){
-        $(".button").prop("disabled", true);
         $(".button").addClass("disable");
+        $(".button").prop("disabled", true);
+        if (this.id != ans){
+            $("#"+this.id).addClass("wrong");
+        }
         $("#"+ans).addClass("correct");
         setTimeout(
             function(){

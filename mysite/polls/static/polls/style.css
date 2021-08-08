@@ -9,7 +9,7 @@
     text-align: center;
 }
 
-button, .button {
+button, .button, .button:active {
     background-color: white;
     border-style: solid;
     border-color: black;
@@ -22,9 +22,14 @@ button, .button {
     font-family: "Arial";
 }
 
-button:hover, .button:hover {
+button:hover, .button:hover, button:focus, .button:focus {
     background-color: black;
     color: white;
+}
+
+button:active, .button:active {
+    background-color: white;
+    color: black;
 }
 
 .center {
@@ -130,7 +135,11 @@ button:hover, .button:hover {
 }
 
 .correct{
-    background-color: grey;
+    background-color: green;
+}
+
+.wrong{
+    background-color: red;
 }
 
 .disable{
