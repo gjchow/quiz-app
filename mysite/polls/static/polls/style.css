@@ -135,11 +135,17 @@ button:active, .button:active {
 }
 
 .correct{
-    background-color: green;
+    background: linear-gradient(to right, white 50%, green 50%) right;
+    background-size: 200% 100%;
+    transition: all .5s ease;
+    color: white;
 }
 
 .wrong{
-    background-color: red;
+    background: linear-gradient(to right, white 50%, red 50%) right;
+    background-size: 200% 100%;
+    transition: all .5s ease;
+    color: white;
 }
 
 .disable{
