@@ -12,18 +12,18 @@ from .models import Question
 
 
 class IndexView(generic.TemplateView):
-    template_name = 'polls/index.html'
+    template_name = 'quiz/index.html'
 
 
 class DetailView(generic.DetailView):
     model = Question
-    template_name = 'polls/detail.html'
+    template_name = 'quiz/detail.html'
 
 
 class ResultsView(generic.ListView):
     model = Question
     paginate_by = 10
-    template_name = 'polls/results.html'
+    template_name = 'quiz/results.html'
 
 
 def listing(request):
@@ -31,13 +31,13 @@ def listing(request):
         form = forms.SearchForm(request.POST)
         if form.is_valid():
             search = form.cleaned_data["search"]
-            return HttpResponseRedirect(reverse('polls:search', args=(search,)))
+            return HttpResponseRedirect(reverse('quiz:search', args=(search,)))
         else:
             question_list = Question.objects.all().order_by('question_text')
     else:
         question_list = Question.objects.all().order_by('question_text')
     paginator = Paginator(question_list, 10)
-    template_name = 'polls/results.html'
+    template_name = 'quiz/results.html'
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {'page_obj': page_obj}
@@ -48,7 +48,7 @@ def listing(request):
 def search_list(request, search):
     question_list = Question.objects.filter(question_text__contains=search).order_by('question_text')
     paginator = Paginator(question_list, 10)
-    template_name = 'polls/results.html'
+    template_name = 'quiz/results.html'
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {'page_obj': page_obj}
@@ -65,7 +65,7 @@ def quiz_mc(request):
         context = {'word': word, 'choices': choices, 'ans_ind': ans_ind}
     else:
         context = {'word': word}
-    return render(request, 'polls/quiz-mc.html', context)
+    return render(request, 'quiz/quiz-mc.html', context)
 
 
 def quiz_text(request):
@@ -76,7 +76,7 @@ def quiz_text(request):
         context = {'word': word, 'choices': choices}
     else:
         context = {'word': word}
-    return render(request, 'polls/quiz-text.html', context)
+    return render(request, 'quiz/quiz-text.html', context)
 
 
 def check_ans(request, quiz, given):
@@ -90,7 +90,7 @@ def check_ans(request, quiz, given):
                 result = info.check_answer(str(given), val)
                 print(given, val)
                 print(result)
-            return HttpResponseRedirect(reverse('polls:quiz-mc'))
+            return HttpResponseRedirect(reverse('quiz:quiz-mc'))
 
         if quiz == 'text':
             form = forms.TextForm(request.POST)
@@ -99,7 +99,7 @@ def check_ans(request, quiz, given):
                 result = info.check_answer(val, str(given))
                 print(val, given)
                 print(result)
-            return HttpResponseRedirect(reverse('polls:quiz-text'))
+            return HttpResponseRedirect(reverse('quiz:quiz-text'))
 
 
 def add_new(request):
@@ -111,4 +111,4 @@ def add_new(request):
             num, created = info.handle_file(request.FILES['file'])
             context = {'num': num, 'created': created}
     print(context)
-    return render(request, 'polls/add-new.html', context)
+    return render(request, 'quiz/add-new.html', context)

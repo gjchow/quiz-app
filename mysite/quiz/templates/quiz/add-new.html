@@ -1,11 +1,11 @@
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
 
 <form  enctype="multipart/form-data" method="post">
     {% csrf_token %}
     <label for="upload" class="button upload">Upload</label>
-    <input type="file" id="upload" name="file" hidden>
+    <input type="file" id="upload" name="file" accept=".txt" hidden>
     <input type="submit" class="button" value="Submit">
 </form>
 {% if created %}

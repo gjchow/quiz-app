@@ -1,17 +1,17 @@
 {% load static %}
 
-<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
 <div class="full center">
     <div class="search">
-        <form action="{% url 'polls:list' %}" method="post">
+        <form action="{% url 'quiz:list' %}" method="post">
             {% csrf_token %}
-            <input type="text" name="search" class="text-ans">
+            <input type="text" name="search" class="text-ans" placeholder="Search">
             <input type="submit" class="button text-submit" value="Search">
         </form>
     </div>
     <div class="options center mc-div">
         {% for question in page_obj %}
-            <a href="{% url 'polls:detail' question.id %}" class="link button mc-button">{{ question }}</a>
+            <a href="{% url 'quiz:detail' question.id %}" class="link button mc-button">{{ question }}</a>
         {% endfor %}
     </div>
     <div class="pagination center">
