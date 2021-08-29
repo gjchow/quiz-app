@@ -1,19 +1,36 @@
 from django import forms
+from django.forms import ModelForm, Form
 
 from .models import Question, Answer
 
 
-class MCForm(forms.Form):
+class MCForm(Form):
     choice = forms.CharField()
 
 
-class TextForm(forms.Form):
+class TextForm(Form):
     ans = forms.CharField(max_length=50)
 
 
-class FileForm(forms.Form):
+class FileForm(Form):
     file = forms.FileField()
 
 
-class SearchForm(forms.Form):
+class SearchForm(Form):
     search = forms.CharField(max_length=50)
+
+
+class QuestionForm(ModelForm):
+    question_text = forms.CharField(widget=forms.TextInput(attrs={'class': 'text-ans auto-width'}))
+
+    class Meta:
+        model = Question
+        fields = ['question_text']
+
+
+class AnswerForm(ModelForm):
+    answer_text = forms.CharField(widget=forms.TextInput(attrs={'class': 'text-ans auto-width'}))
+
+    class Meta:
+        model = Answer
+        fields = ['answer_text']

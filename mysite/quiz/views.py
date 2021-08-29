@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.forms import formset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -51,7 +52,7 @@ def search_list(request, search):
     template_name = 'quiz/results.html'
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {'page_obj': page_obj}
+    context = {'page_obj': page_obj, 'search': search}
 
     return render(request, template_name, context)
 
@@ -88,8 +89,6 @@ def check_ans(request, quiz, given):
             if form.is_valid():
                 val = form.cleaned_data["choice"]
                 result = info.check_answer(str(given), val)
-                print(given, val)
-                print(result)
             return HttpResponseRedirect(reverse('quiz:quiz-mc'))
 
         if quiz == 'text':
@@ -97,18 +96,30 @@ def check_ans(request, quiz, given):
             if form.is_valid():
                 val = form.cleaned_data["ans"]
                 result = info.check_answer(val, str(given))
-                print(val, given)
-                print(result)
             return HttpResponseRedirect(reverse('quiz:quiz-text'))
 
 
 def add_new(request):
     info = Information()
-    context = {}
+    AnswerFormSet = formset_factory(forms.AnswerForm, extra=0, max_num=10, min_num=1, validate_min=True)
+    nformq = forms.QuestionForm()
+    nformseta = AnswerFormSet()
+    context = {'formseta': nformseta, 'formq': nformq}
     if request.method == 'POST':
-        form = forms.FileForm(request.POST, request.FILES)
-        if form.is_valid():
-            num, created = info.handle_file(request.FILES['file'])
-            context = {'num': num, 'created': created}
-    print(context)
+        formq = forms.QuestionForm(request.POST)
+        formseta = AnswerFormSet(request.POST)
+        formfile = forms.FileForm(request.POST, request.FILES)
+        if formfile.is_valid():
+            num, created, add_word = info.handle_file(request.FILES['file'])
+            context = {'num': num, 'created': created, 'formseta': nformseta, 'formq': nformq}
+        if formq.is_valid() and formseta.is_valid():
+            answers = []
+            question = formq.cleaned_data['question_text']
+            for forma in formseta:
+                if 'answer_text' in forma.cleaned_data:
+                    answer = forma.cleaned_data['answer_text']
+                    answers.append(answer)
+            data = {question: answers}
+            num, created, add_word = info.add_data(data)
+            context = {'add_word': add_word, 'formseta': nformseta, 'formq': nformq}
     return render(request, 'quiz/add-new.html', context)
