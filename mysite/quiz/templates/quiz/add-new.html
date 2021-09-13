@@ -7,47 +7,47 @@
 <script src="{% static 'scripts/add-new.js' %}"></script>
 
 <div class="full center" style="flex-direction:row">
-<div class="half-width center">
-    <form method="post" id="manual-form" class="full">
-        {% csrf_token %}
-        <div>
-        <label class="button text-submit link">Question</label>
-        {{ formq.question_text }}
-        </div>
-        {{ formseta.management_form }}
-        <div id="form_set">
-            {% for forma in formseta.forms %}
+    <div class="half-width center">
+        <form method="post" id="manual-form" class="full">
+            {% csrf_token %}
             <div>
-                <span><label class="button text-submit link">Answer</label></span>
-                <span>{{ forma.answer_text }}</span><br>
+                <label class="add-text text-submit link">Question</label>
+                {{ formq.question_text }}
             </div>
-            {% endfor %}
-        </div>
-        <input type="button" class="button" value="+" id="add_more">
-        <div id="empty_form" style="display:none">
-            <div>
-            <label class="button text-submit link">Answer</label>
-            {{ formseta.empty_form.answer_text }}<br>
+            {{ formseta.management_form }}
+            <div id="form_set">
+                {% for forma in formseta.forms %}
+                <div>
+                    <span><label class="add-text text-submit link">Answer</label></span>
+                    <span>{{ forma.answer_text }}</span><br>
+                </div>
+                {% endfor %}
             </div>
-        </div>
-        <button type="submit" form="manual-form">Submit</button>
-    </form>
-    {% if add_word %}
-        <p>{{ add_word }} was successfully added</p>
-    {% endif %}
-</div>
-<div class="half-width center">
-    <form enctype="multipart/form-data" method="post" id="upload-form">
-        {% csrf_token %}
-        <label for="upload" class="button upload">Upload</label>
-        <input type="file" id="upload" name="file" accept=".txt" hidden>
-        <button type="submit" form="upload-form">Submit</button>
-    </form>
-    {% if created %}
-        <p>{{ created }} words successfully added</p>
-    {% endif %}
-    {% if num %}
-        <p>{{ num }} words successfully changed</p>
-    {% endif %}
-</div>
+            <input type="button" class="button" value="+" id="add_more">
+            <div id="empty_form" style="display:none">
+                <div>
+                <label class="add-text text-submit link">Answer</label>
+                {{ formseta.empty_form.answer_text }}<br>
+                </div>
+            </div>
+            <button type="submit" form="manual-form">Submit</button>
+        </form>
+        {% if add_word %}
+            <p>{{ add_word }} was successfully added</p>
+        {% endif %}
+    </div>
+    <div class="half-width center">
+        <form enctype="multipart/form-data" method="post" id="upload-form">
+            {% csrf_token %}
+            <label for="upload" class="button upload">Upload</label>
+            <input type="file" id="upload" name="file" accept=".txt" hidden>
+            <button type="submit" form="upload-form">Submit</button>
+        </form>
+        {% if created %}
+            <p>{{ created }} words successfully added</p>
+        {% endif %}
+        {% if num %}
+            <p>{{ num }} words successfully changed</p>
+        {% endif %}
+    </div>
 </div>

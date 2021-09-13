@@ -8,7 +8,7 @@
         <form id="form1" action="{% url 'quiz:check-ans' given=choices.0 quiz='text' %}" class="mc-div" method="post">
             {% csrf_token %}
             <input type="text" name="ans" class="text-ans" autofocus>
-            <input type="submit" class="button text-submit" value="Submit">
+            <input type="submit" class="button" value="Submit">
         </form>
     {% else %}
         <p class="question">There are no questions added.</p>

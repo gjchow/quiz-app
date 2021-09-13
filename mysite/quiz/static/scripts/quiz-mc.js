@@ -1,6 +1,5 @@
 $(document).ready(function(){
     const ans = JSON.parse(document.getElementById('ans').textContent);
-    console.log(ans)
     $(".button").click(function(){
         $(".button").addClass("disable");
         $(".button").prop("disabled", true);
