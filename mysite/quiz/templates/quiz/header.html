@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 {% load static %}
 <head>
     <meta charset="UTF-8">
@@ -6,21 +5,23 @@
     <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
     <script src="{% static 'scripts/header.js' %}"></script>
 </head>
-<div class="header">
-    <div class="hamburger">
-        <div class="bar1"></div>
-        <div class="bar2"></div>
-        <div class="bar3"></div>
-    </div>
+<body>
+    <div class="header">
+        <div class="hamburger">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+        </div>
 
-    <p class="white-text">Quiz-app</p>
-</div>
-<div>
-    <div class="sidebar">
-        <a href="{% url 'quiz:index' %}" class="sidebar-option">Home</a>
-        <a href="{% url 'quiz:quiz-mc' %}" class="sidebar-option">MC</a>
-        <a href="{% url 'quiz:quiz-text' %}" class="sidebar-option">Text</a>
-        <a href="{% url 'quiz:add-new' %}" class="sidebar-option">Add</a>
-        <a href="{% url 'quiz:list' %}" class="sidebar-option">View</a>
+        <p class="white-text">Quiz-app</p>
     </div>
-</div>
+    <div>
+        <div class="sidebar">
+            <a href="{% url 'quiz:index' %}" class="sidebar-option">Home</a>
+            <a href="{% url 'quiz:quiz-mc' %}" class="sidebar-option">MC</a>
+            <a href="{% url 'quiz:quiz-text' %}" class="sidebar-option">Text</a>
+            <a href="{% url 'quiz:add-new' %}" class="sidebar-option">Add</a>
+            <a href="{% url 'quiz:list' %}" class="sidebar-option">View</a>
+        </div>
+    </div>
+</body>

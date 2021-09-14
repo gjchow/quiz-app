@@ -1,11 +1,15 @@
 {% load static %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
-<div class="full center">
-    <div class="">
-        <a href="{% url 'quiz:quiz-mc' %}" class="button">MC</a>
-        <a href="{% url 'quiz:quiz-text' %}" class="button">Text</a>
-        <a href="{% url 'quiz:add-new' %}" class="button">Add</a>
-        <a href="{% url 'quiz:list' %}" class="button">View</a>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
+</head>
+<body>
+    {% include 'quiz/header.html' %}
+    <div class="full center">
+        <div>
+            <a href="{% url 'quiz:quiz-mc' %}" class="button">MC</a>
+            <a href="{% url 'quiz:quiz-text' %}" class="button">Text</a>
+            <a href="{% url 'quiz:add-new' %}" class="button">Add</a>
+            <a href="{% url 'quiz:list' %}" class="button">View</a>
+        </div>
     </div>
-</div>
+</body>

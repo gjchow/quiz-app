@@ -1,16 +1,19 @@
 {% load static %}
-
-<link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
-
-<div class="full center">
-    {% if word is not None %}
-        <p class="question">{{ choices.0 }}</p>
-        <form id="form1" action="{% url 'quiz:check-ans' given=choices.0 quiz='text' %}" class="mc-div" method="post">
-            {% csrf_token %}
-            <input type="text" name="ans" class="text-ans" autofocus>
-            <input type="submit" class="button" value="Submit">
-        </form>
-    {% else %}
-        <p class="question">There are no questions added.</p>
-    {% endif %}
-</div>
+<head>
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
+</head>
+<body>
+    {% include 'quiz/header.html' %}
+    <div class="full center">
+        {% if word is not None %}
+            <p class="question">{{ choices.0 }}</p>
+            <form id="form1" action="{% url 'quiz:check-ans' given=choices.0 quiz='text' %}" class="mc-div" method="post">
+                {% csrf_token %}
+                <input type="text" name="ans" class="text-ans" autofocus>
+                <input type="submit" class="button" value="Submit">
+            </form>
+        {% else %}
+            <p class="question">There are no questions added.</p>
+        {% endif %}
+    </div>
+</body>
