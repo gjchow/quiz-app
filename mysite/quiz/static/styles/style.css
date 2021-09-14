@@ -1,3 +1,7 @@
+body {
+    margin: 0;
+}
+
 .question {
     border-style: none;
     color: black;
@@ -9,7 +13,7 @@
     text-align: center;
 }
 
-button, .button, .button:active {
+.button {
     background-color: white;
     border-style: solid;
     border-color: black;
@@ -22,12 +26,25 @@ button, .button, .button:active {
     font-family: "Arial";
 }
 
-button:hover, .button:hover, button:focus, .button:focus {
+.button:hover, .button:focus {
     background-color: black;
     color: white;
 }
 
-button:active, .button:active {
+.reverse-button {
+    background-color: black;
+    border-style: solid;
+    border-color: white;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 24px;
+    border-width: thin;
+    font-family: "Arial";
+}
+
+.reverse-button:hover, .reverse-button:focus {
     background-color: white;
     color: black;
 }
@@ -77,7 +94,7 @@ button:active, .button:active {
 
 .full{
     width: 100%;
-    height: 100%;
+    height: 90%;
     position: relative;
     text-align: center;
 }
@@ -169,4 +186,102 @@ button:active, .button:active {
     text-decoration: none;
     font-size: 24px;
     font-family: "Arial";
+}
+
+.white-text {
+    border-style: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 24px;
+    font-family: "Arial";
+}
+
+.header {
+    background-color: black;
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.hamburger {
+    display: inline-block;
+    cursor: pointer;
+    text-align: center;
+    margin: 12px;
+}
+
+    .bar1, .bar2, .bar3 {
+        width: 35px;
+        height: 3px;
+        background-color: white;
+        margin: 6px 0;
+        transition: 0.4s;
+        border-radius: 3px;
+    }
+
+    .change .bar1 {
+        -webkit-transform: rotate(-45deg) translate(-7px, 6px);
+        transform: rotate(-45deg) translate(-7px, 6px);
+    }
+
+    .change .bar2 {opacity: 0;}
+
+    .change .bar3 {
+        -webkit-transform: rotate(45deg) translate(-7px, -6px);
+        transform: rotate(45deg) translate(-7px, -6px);
+    }
+}
+
+.navbar {
+    height: 100%;
+    width: 0px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: black;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+}
+
+.sidebar {
+    height: 100%;
+    width: 0px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: black;
+    overflow-x: hidden;
+    margin-top: 80px;
+    transition: 0.5s;
+}
+
+.sidebar-option {
+    border-style: none;
+    color: white;
+    padding: 12px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 24px;
+    font-family: "Arial";
+    padding: 12px;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidebar-option:hover {
+    background-color: gray;
+}
+
+.open-sidebar {
+    width: 250px;
+}
+
+.close-sidebar {
+    display: hidden;
 }
