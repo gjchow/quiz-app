@@ -1,5 +1,6 @@
 body {
     margin: 0;
+    font-family: "Arial";
 }
 
 .question {
@@ -273,4 +274,8 @@ body {
 
 .open-sidebar {
     width: 250px;
+}
+
+.search-option {
+    border: thin;
 }

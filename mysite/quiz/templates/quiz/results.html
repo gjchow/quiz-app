@@ -20,7 +20,7 @@
             </div>
             <div class="options center mc-div">
                 {% for question in page_obj %}
-                    <a href="{% url 'quiz:detail' question.id %}" class="link button mc-button">{{ question }}</a>
+                    <a href="{% url 'quiz:detail' question.id %}" class="button mc-button search-option">{{ question }}</a>
                 {% endfor %}
             </div>
             <div class="pagination">
@@ -28,9 +28,6 @@
                     {% if page_obj.has_previous %}
                         <a href="?page=1" class="button link">&laquo;</a>
                         <a href="?page={{ page_obj.previous_page_number }}" class="button link">&lsaquo;</a>
-                    {% else %}
-                        <a class="button link">&laquo;</a>
-                        <a class="button link">&lsaquo;</a>
                     {% endif %}
 
                     <span class="current page">
@@ -40,9 +37,6 @@
                     {% if page_obj.has_next %}
                         <a href="?page={{ page_obj.next_page_number }}" class="button link">&rsaquo;</a>
                         <a href="?page={{ page_obj.paginator.num_pages }}" class="button link">&raquo;</a>
-                    {% else %}
-                        <a class="button link">&rsaquo;</a>
-                        <a class="button link" >&raquo;</a>
                     {% endif %}
                 </span>
             </div>
