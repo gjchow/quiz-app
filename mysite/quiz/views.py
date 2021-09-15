@@ -9,8 +9,6 @@ from . import forms
 from .information import Information
 from .models import Question
 
-#8CBED6
-
 
 class IndexView(generic.TemplateView):
     template_name = 'quiz/index.html'
