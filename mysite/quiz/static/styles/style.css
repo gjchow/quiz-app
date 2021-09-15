@@ -14,20 +14,22 @@ body {
 }
 
 .button {
-    background-color: white;
+    background-color: black;
     border-style: solid;
     border-color: black;
-    color: black;
+    color: white;
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
     font-size: 24px;
-    border-width: thin;
+    border-width: medium;
     font-family: "Arial";
+    transition: 0.3s;
 }
 
 .button:hover, .button:focus {
-    background-color: black;
+    background-color: gray;
+    border-color: gray;
     color: white;
 }
 
@@ -40,7 +42,7 @@ body {
     text-align: center;
     text-decoration: none;
     font-size: 24px;
-    border-width: thin;
+    border-width: medium;
     font-family: "Arial";
 }
 
@@ -79,7 +81,7 @@ body {
     background-color: white;
     border-style: solid;
     border-color: black;
-    border-width: thin;
+    border-width: medium;
     color: black;
     margin: 2px;
 }
@@ -139,11 +141,11 @@ body {
     text-align: center;
     text-decoration: none;
     font-size: 24px;
-    border-width: thin;
+    border-width: medium;
     font-family: "Arial";
     width: 50%;
     height: 50%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow: 10px 10px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
 .item{
@@ -160,16 +162,16 @@ body {
 }
 
 .correct{
-    background: linear-gradient(to right, white 50%, green 50%) right;
+    background: linear-gradient(to right, black 50%, green 50%) right;
     background-size: 200% 100%;
-    transition: all .5s ease;
+    transition: 0.5s;
     color: white;
 }
 
 .wrong{
-    background: linear-gradient(to right, white 50%, red 50%) right;
+    background: linear-gradient(to right, black 50%, red 50%) right;
     background-size: 200% 100%;
-    transition: all .5s ease;
+    transition: 0.5s ;
     color: white;
 }
 
@@ -271,8 +273,4 @@ body {
 
 .open-sidebar {
     width: 250px;
-}
-
-.close-sidebar {
-    display: hidden;
 }
