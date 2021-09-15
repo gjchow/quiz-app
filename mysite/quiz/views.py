@@ -74,7 +74,7 @@ def quiz_text(request):
     word = info.get_word()
     if word is not None:
         choices = info.get_defs(1, word)
-        context = {'word': word, 'choices': choices}
+        context = {'word': str(word), 'choices': choices}
     else:
         context = {'word': word}
     return render(request, 'quiz/quiz-text.html', context)
