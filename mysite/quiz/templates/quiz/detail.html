@@ -12,15 +12,19 @@
             <div class="corner">
                 <button class="card-button" id="edit"><span class="material-icons md-48">edit</span></button>
                 <button class="card-button" id="delete"><span class="material-icons md-48">delete</span></button>
-                <button class="card-button" id="save" hidden><span class="material-icons md-48">save</span></button>
-                <button class="card-button" id="cancel" hidden><span class="material-icons md-48">cancel</span></button>
+                <button class="card-button" id="save" type="submit" form="edit-form" hidden><span class="material-icons md-48">save</span></button>
+                <button class="card-button" id="cancel" type="reset" form="edit-form" hidden><span class="material-icons md-48">cancel</span></button>
             </div>
-            <p class="question">{{ question.question_text }}</p>
-            <ul class="item" style="margin: 0">
-            {% for forma in formseta %}
-                <li>{{ forma.answer_text }}</li>
-            {% endfor %}
-            </ul>
+            <form method="post" id="edit-form" class="full">
+                {% csrf_token %}
+                <p class="question">{{ question.question_text }}</p>
+                {{ formseta.management_form }}
+                <ul class="item" style="margin: 0">
+                    {% for forma in formseta %}
+                        <li>{{ forma.answer_text }}</li>
+                    {% endfor %}
+                </ul>
+            </form>
         </div>
     </div>
 </body>

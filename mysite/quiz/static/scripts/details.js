@@ -5,16 +5,7 @@ $(document).ready(function(){
     $('#edit').click(function(){
         $(':input[type=text]').toggleClass('text-ans');
         $(':input[type=text]').toggleClass('text-disabled');
-        $(':input[type=text]').prop('disabled', function(i, v) { return !v; });
-        $('#edit').toggle();
-        $('#delete').toggle();
-        $('#save').toggle();
-        $('#cancel').toggle();
-    });
-    $('#save').click(function(){
-        $(':input[type=text]').toggleClass('text-ans');
-        $(':input[type=text]').toggleClass('text-disabled');
-        $(':input[type=text]').prop('disabled', function(i, v) { return !v; });
+        $(':input[type=text]').prop('disabled', false);
         $('#edit').toggle();
         $('#delete').toggle();
         $('#save').toggle();
@@ -23,7 +14,7 @@ $(document).ready(function(){
     $('#cancel').click(function(){
         $(':input[type=text]').toggleClass('text-ans');
         $(':input[type=text]').toggleClass('text-disabled');
-        $(':input[type=text]').prop('disabled', function(i, v) { return !v; });
+        $(':input[type=text]').prop('disabled', true);
         $('#edit').toggle();
         $('#delete').toggle();
         $('#save').toggle();

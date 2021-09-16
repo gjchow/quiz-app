@@ -108,3 +108,11 @@ class Information:
         added, edited, add_word = self.add_data(info)
         return added, edited, add_word
 
+    def update_word(self, word, defs):
+        if Question.objects.filter(question_text=word).exists():
+            quest = Question.objects.filter(question_text=word)[0]
+            quest.answer_set.all().delete()
+            for defi in defs:
+                if not quest.answer_set.all().filter(answer_text=defi).exists():
+                    quest.answer_set.create(answer_text=defi)
+

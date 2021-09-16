@@ -14,14 +14,19 @@ class IndexView(generic.TemplateView):
     template_name = 'quiz/index.html'
 
 
-class DetailView(generic.DetailView):
-    model = Question
-    template_name = 'quiz/detail.html'
-
-
 def detail(request, pk):
+    info = Information()
     AnswerFormSet = formset_factory(forms.AnswerForm, extra=0, max_num=10, min_num=1, validate_min=True)
     question = Question.objects.get(pk=pk)
+    if request.method == 'POST':
+        formseta = AnswerFormSet(request.POST)
+        if formseta.is_valid():
+            answers = []
+            for forma in formseta:
+                if 'answer_text' in forma.cleaned_data:
+                    answer = forma.cleaned_data['answer_text']
+                    answers.append(answer)
+            info.update_word(question, answers)
     answers = []
     for a in question.answer_set.all():
         answers.append(model_to_dict(a, fields='answer_text'))
