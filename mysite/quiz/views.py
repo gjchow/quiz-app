@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.forms import formset_factory
+from django.forms import formset_factory, model_to_dict
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -19,10 +19,15 @@ class DetailView(generic.DetailView):
     template_name = 'quiz/detail.html'
 
 
-class ResultsView(generic.ListView):
-    model = Question
-    paginate_by = 10
-    template_name = 'quiz/results.html'
+def detail(request, pk):
+    AnswerFormSet = formset_factory(forms.AnswerForm, extra=0, max_num=10, min_num=1, validate_min=True)
+    question = Question.objects.get(pk=pk)
+    answers = []
+    for a in question.answer_set.all():
+        answers.append(model_to_dict(a, fields='answer_text'))
+    formseta = AnswerFormSet(initial=answers)
+    context = {'question': question, 'formseta': formseta}
+    return render(request, 'quiz/detail.html', context)
 
 
 def listing(request):

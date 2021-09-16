@@ -4,7 +4,7 @@ from . import views
 app_name = 'quiz'
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-    path('<int:pk>/', views.DetailView.as_view(), name='detail'),
+    path('<int:pk>/', views.detail, name='detail'),
     path('list/', views.listing, name='list'),
     path('list/<str:search>/', views.search_list, name='search'),
     path('quiz-mc/', views.quiz_mc, name='quiz-mc'),

@@ -21,7 +21,7 @@ class SearchForm(Form):
 
 
 class QuestionForm(ModelForm):
-    question_text = forms.CharField(widget=forms.TextInput(attrs={'class': 'text-ans auto-width'}))
+    question_text = forms.CharField(widget=forms.TextInput(attrs={'class': 'text-ans auto-width', 'autocomplete': 'off'}))
 
     class Meta:
         model = Question
@@ -29,7 +29,7 @@ class QuestionForm(ModelForm):
 
 
 class AnswerForm(ModelForm):
-    answer_text = forms.CharField(widget=forms.TextInput(attrs={'class': 'text-ans auto-width'}))
+    answer_text = forms.CharField(widget=forms.TextInput(attrs={'class': 'text-ans auto-width', 'autocomplete': 'off'}))
 
     class Meta:
         model = Answer

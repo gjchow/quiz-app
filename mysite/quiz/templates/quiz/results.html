@@ -10,9 +10,9 @@
                 <form action="{% url 'quiz:list' %}" method="post">
                     {% csrf_token %}
                     {% if search %}
-                        <input type="text" name="search" class="text-ans" value="{{ search }}">
+                        <input type="text" name="search" class="text-ans" value="{{ search }}" autocomplete="off">
                     {% else %}
-                        <input type="text" name="search" class="text-ans" placeholder="Search">
+                        <input type="text" name="search" class="text-ans" placeholder="Search" autocomplete="off">
                     {% endif %}
                     <input type="submit" class="button" value="Search">
 
@@ -28,6 +28,9 @@
                     {% if page_obj.has_previous %}
                         <a href="?page=1" class="button link">&laquo;</a>
                         <a href="?page={{ page_obj.previous_page_number }}" class="button link">&lsaquo;</a>
+                    {% else %}
+                        <a class="button link">&laquo;</a>
+                        <a class="button link">&lsaquo;</a>
                     {% endif %}
 
                     <span class="current page">
@@ -37,6 +40,9 @@
                     {% if page_obj.has_next %}
                         <a href="?page={{ page_obj.next_page_number }}" class="button link">&rsaquo;</a>
                         <a href="?page={{ page_obj.paginator.num_pages }}" class="button link">&raquo;</a>
+                    {% else %}
+                        <a class="button link">&rsaquo;</a>
+                        <a class="button link" >&raquo;</a>
                     {% endif %}
                 </span>
             </div>
