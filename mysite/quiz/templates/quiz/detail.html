@@ -3,11 +3,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
     <script src="{% static 'scripts/details.js' %}"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     {% include 'quiz/header.html' %}
     <div class="full center">
         <div class="card">
+            <div class="corner">
+                <button class="card-button" id="edit"><span class="material-icons md-48">edit</span></button>
+                <button class="card-button" id="delete"><span class="material-icons md-48">delete</span></button>
+                <button class="card-button" id="save" hidden><span class="material-icons md-48">save</span></button>
+                <button class="card-button" id="cancel" hidden><span class="material-icons md-48">cancel</span></button>
+            </div>
             <p class="question">{{ question.question_text }}</p>
             <ul class="item" style="margin: 0">
             {% for forma in formseta %}

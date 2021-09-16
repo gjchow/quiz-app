@@ -28,10 +28,21 @@ body {
     transition: 0.3s;
 }
 
-.button:hover, .button:focus {
+.button:hover {
     background-color: gray;
     border-color: gray;
     color: white;
+}
+
+.card-button {
+    background-color: white;
+    border-style: none;
+    color: black;
+    transition: 0.3s;
+}
+
+.card-button:hover {
+    color: gray;
 }
 
 .reverse-button {
@@ -65,7 +76,6 @@ body {
     margin: 2px;
 }
 
-
 .mc-div{
     width: 50%;
 }
@@ -84,7 +94,7 @@ body {
     border-color: black;
     border-width: medium;
     color: black;
-    margin: 2px;
+    margin: 1px;
 }
 
 .text-ans:focus{
@@ -147,6 +157,7 @@ body {
     width: 50%;
     min-height: 50%;
     box-shadow: 10px 10px 20px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
 }
 
 .item{
@@ -192,9 +203,11 @@ body {
 
 .text-disabled {
     background-color: white;
-    border-style: none;
+    border-style: solid;
+    border-color: white;
+    border-width: medium;
     color: black;
-    padding: 15px 32px;
+    padding: 15px;
     text-decoration: none;
     font-size: 24px;
     font-family: "Arial";
@@ -289,3 +302,15 @@ body {
 .search-option {
     border: thin;
 }
+
+.corner {
+    position: absolute;
+    margin: 10px;
+    right: 0;
+    top: 0;
+}
+
+.material-icons.md-18 { font-size: 18px; }
+.material-icons.md-24 { font-size: 24px; }
+.material-icons.md-36 { font-size: 36px; }
+.material-icons.md-48 { font-size: 48px; }
