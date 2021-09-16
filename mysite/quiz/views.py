@@ -28,11 +28,17 @@ def detail(request, pk):
                     answers.append(answer)
             info.update_word(question, answers)
     answers = []
-    for a in question.answer_set.all():
-        answers.append(model_to_dict(a, fields='answer_text'))
+    for ans in question.answer_set.all():
+        answers.append(model_to_dict(ans, fields='answer_text'))
     formseta = AnswerFormSet(initial=answers)
     context = {'question': question, 'formseta': formseta}
     return render(request, 'quiz/detail.html', context)
+
+
+def delete(request, pk):
+    info = Information()
+    info.delete_word(pk)
+    return HttpResponseRedirect(reverse('quiz:list'))
 
 
 def listing(request):

@@ -11,5 +11,5 @@ urlpatterns = [
     path('quiz-text/', views.quiz_text, name='quiz-text'),
     path('check-ans/<str:quiz>/<str:given>/', views.check_ans, name='check-ans'),
     path('add-new/', views.add_new, name='add-new'),
-
+    path('delete/<int:pk>/', views.delete, name='delete'),
 ]

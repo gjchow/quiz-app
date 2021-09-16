@@ -116,3 +116,6 @@ class Information:
                 if not quest.answer_set.all().filter(answer_text=defi).exists():
                     quest.answer_set.create(answer_text=defi)
 
+    def delete_word(self, pk):
+        if Question.objects.filter(pk=pk).exists():
+            Question.objects.filter(pk=pk).delete()

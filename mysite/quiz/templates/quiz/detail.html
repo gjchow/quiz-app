@@ -11,7 +11,7 @@
         <div class="card">
             <div class="corner">
                 <button class="card-button" id="edit"><span class="material-icons md-48">edit</span></button>
-                <button class="card-button" id="delete"><span class="material-icons md-48">delete</span></button>
+                <a href="{% url 'quiz:delete' question.id %}" class="card-button" id="delete"><span class="material-icons md-48">delete</span></a>
                 <button class="card-button" id="save" type="submit" form="edit-form" hidden><span class="material-icons md-48">save</span></button>
                 <button class="card-button" id="cancel" type="reset" form="edit-form" hidden><span class="material-icons md-48">cancel</span></button>
             </div>
