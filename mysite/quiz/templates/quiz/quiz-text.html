@@ -12,7 +12,7 @@
             <p class="question">{{ choices.0 }}</p>
             <form id="form1" action="{% url 'quiz:check-ans' given=choices.0 quiz='text' %}" class="mc-div" method="post">
                 {% csrf_token %}
-                <input type="text" name="ans" class="text-ans" autofocus>
+                <input type="text" name="ans" class="text-ans" autocomplete="off" autofocus>
                 <input type="submit" class="button" value="Submit">
             </form>
         {% else %}
