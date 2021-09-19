@@ -34,7 +34,6 @@
 
                 <span class="current page">
                     <form action="{% url 'quiz:list' %}" method="get" class="page-number">
-                        {% csrf_token %}
                         <input type="text" name="page" class="page-number" value="{{ page_obj.number }}" autocomplete="off">
                     </form>
                      of {{ page_obj.paginator.num_pages }}
