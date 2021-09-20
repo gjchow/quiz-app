@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.core.paginator import Paginator
 from django.forms import formset_factory, model_to_dict
 from django.http import HttpResponseRedirect
@@ -91,22 +92,22 @@ def check_ans(request, quiz, given):
     if request.method == 'POST':
         if quiz == 'mc':
             form = forms.MCForm(request.POST)
-            print(form)
             if form.is_valid():
                 val = form.cleaned_data["choice"]
                 result = info.check_answer(given, val)
-                print(result)
-                print(given, val)
+                if settings.DEBUG:
+                    print(result)
+                    print(given, val)
             return HttpResponseRedirect(reverse('quiz:quiz-mc'))
 
         if quiz == 'text':
             form = forms.TextForm(request.POST)
-            print(form)
             if form.is_valid():
                 val = form.cleaned_data["ans"]
                 result = info.check_answer(val, str(given))
-                print(result)
-                print(given, val)
+                if settings.DEBUG:
+                    print(result)
+                    print(given, val)
             return HttpResponseRedirect(reverse('quiz:quiz-text'))
 
 
