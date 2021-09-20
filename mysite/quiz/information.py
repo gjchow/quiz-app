@@ -74,7 +74,7 @@ class Information:
     def get_question(self, num: int) -> tuple[Question, list[Answer]]:
         word = None
         choices = []
-        if num < Question.objects.all().count():
+        if num > Question.objects.all().count():
             return word, choices
         if DupeAnswer.objects.all().exists():
             roll = random.randrange(10)
