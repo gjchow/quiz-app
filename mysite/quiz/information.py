@@ -50,14 +50,19 @@ class Information:
 
         return word
 
-    def _get_defs(self, num: int, q: Question) -> list[Answer]:
-        # returns num options including at least one for the word
+    def _get_word_def(self, q: Question) -> list[Answer]:
         defs = []
         c = q.answer_set.count()
 
         defs.append(q.answer_set.all()[random.randrange(c)])
 
-        for _ in range(num - 1):
+        return defs
+
+    def _get_defs(self, num: int, q: Question) -> list[Answer]:
+        # returns num options including at least one for the word
+        defs = []
+
+        for _ in range(num):
             pick = self._get_word(q.question_text)
             c = pick.answer_set.count()
             defs.append(pick.answer_set.all()[random.randrange(c)])
@@ -69,6 +74,8 @@ class Information:
     def get_question(self, num: int) -> tuple[Question, list[Answer]]:
         word = None
         choices = []
+        if num < Question.objects.all().count():
+            return word, choices
         if DupeAnswer.objects.all().exists():
             roll = random.randrange(10)
             if settings.DEBUG:
@@ -80,14 +87,17 @@ class Information:
                 word = da.question
                 choices.append(da)
                 choices.extend(self._get_defs(num-1, word))
+                random.shuffle(choices)
             else:
                 word = self._get_word()
-                choices = self._get_defs(num, word)
+                choices = self._get_word_def(word)
+                choices.extend(self._get_defs(num-1, word))
         else:
             if settings.DEBUG:
                 print('DNE')
             word = self._get_word()
-            choices = self._get_defs(num, word)
+            choices = self._get_word_def(word)
+            choices.extend(self._get_defs(num - 1, word))
         return word, choices
 
     def check_answer(self, word: str, answer: str) -> bool:
