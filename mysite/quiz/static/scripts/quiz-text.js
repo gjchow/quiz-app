@@ -5,6 +5,7 @@ $(document).ready(function(){
         $(".text-ans").addClass("disable");
         $(".text-ans").prop("disabled", true);
         $("#real-ans").val($(".text-ans").val());
+        $("#correct-ans").val(ans);
         if ($(".text-ans").val() != ans){
             $(".text-ans").addClass("wrong");
             $(".text-ans").val(ans);

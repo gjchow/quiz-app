@@ -8,6 +8,7 @@ $(document).ready(function(){
         }
         $("#"+ans).addClass("correct");
         $("#real-ans").val(this.value);
+        $("#correct-ans").val($("#"+ans).val())
         setTimeout(
             function(){
                $("#question-form").submit();

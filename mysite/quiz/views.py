@@ -75,6 +75,8 @@ def search_list(request, search):
 def quiz_mc(request):
     info = Information()
     word, choices = info.get_question(4)
+    if settings.DEBUG:
+        print(word, choices)
     ans_ind = info.get_ans_index(word, choices)
     context = {'word': word, 'choices': choices, 'ans_ind': ans_ind}
     return render(request, 'quiz/quiz-mc.html', context)
@@ -83,6 +85,8 @@ def quiz_mc(request):
 def quiz_text(request):
     info = Information()
     word, choices = info.get_question(1)
+    if settings.DEBUG:
+        print(word, choices)
     context = {'word': str(word), 'choices': choices}
     return render(request, 'quiz/quiz-text.html', context)
 
@@ -94,7 +98,12 @@ def check_ans(request, quiz, given):
             form = forms.MCForm(request.POST)
             if form.is_valid():
                 val = form.cleaned_data["choice"]
+                correct = form.cleaned_data["correct"]
                 result = info.check_answer(given, val)
+                if not result:
+                    info.dupe_answer(given, correct)
+                else:
+                    info.delete_dupe(given, correct)
                 if settings.DEBUG:
                     print(result)
                     print(given, val)
@@ -104,10 +113,15 @@ def check_ans(request, quiz, given):
             form = forms.TextForm(request.POST)
             if form.is_valid():
                 val = form.cleaned_data["ans"]
-                result = info.check_answer(val, str(given))
+                correct = form.cleaned_data["correct"]
+                result = info.check_answer(val, given)
+                if not result:
+                    info.dupe_answer(correct, given)
+                else:
+                    info.delete_dupe(correct, given)
                 if settings.DEBUG:
                     print(result)
-                    print(given, val)
+                    print(val, given)
             return HttpResponseRedirect(reverse('quiz:quiz-text'))
 
 

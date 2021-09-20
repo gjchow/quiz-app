@@ -5,7 +5,7 @@ import datetime
 
 
 class Question(models.Model):
-    question_text = models.CharField(max_length=50)
+    question_text = models.CharField(max_length=50, unique=True)
     add_date = models.DateField('date added', default=timezone.now)
 
     def __str__(self):
@@ -20,7 +20,9 @@ class Answer(models.Model):
         return self.answer_text
 
 
-class DupeAnswer(Answer):
+class DupeAnswer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)  # Deletes Answer if Question is deleted
+    answer_text = models.CharField(max_length=200)
 
     def __str__(self):
         return self.answer_text

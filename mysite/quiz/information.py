@@ -1,7 +1,6 @@
 import random
 
-from django.utils import timezone
-from django.db.models import Max
+from django.conf import settings
 
 from .models import Question, Answer, DupeAnswer
 
@@ -72,18 +71,28 @@ class Information:
         choices = []
         if DupeAnswer.objects.all().exists():
             roll = random.randrange(10)
+            if settings.DEBUG:
+                print('Exists')
+                print(roll)
             if roll < 2:
                 c = DupeAnswer.objects.all().count()
                 da = DupeAnswer.objects.all()[random.randrange(c)]
-                word = da.Question
+                word = da.question
                 choices.append(da)
                 choices.extend(self._get_defs(num-1, word))
+            else:
+                word = self._get_word()
+                choices = self._get_defs(num, word)
         else:
+            if settings.DEBUG:
+                print('DNE')
             word = self._get_word()
             choices = self._get_defs(num, word)
         return word, choices
 
-    def check_answer(self, word: Question, answer: str) -> bool:
+    def check_answer(self, word: str, answer: str) -> bool:
+        if settings.DEBUG:
+            print('Check: ', DupeAnswer.objects.all())
         qs = Question.objects.filter(question_text=word)
         if not qs:
             return False
@@ -96,7 +105,7 @@ class Information:
 
     def get_ans_index(self, word: Question,  answers: list[Answer]):
         for i in range(len(answers)):
-            if self.check_answer(word, str(answers[i])):
+            if self.check_answer(str(word), str(answers[i])):
                 return i
         return -1
 
@@ -137,4 +146,13 @@ class Information:
             Question.objects.filter(pk=pk).delete()
 
     def dupe_answer(self, word, defi):
-        pass
+        question = Question.objects.filter(question_text=word)[0]
+        question.dupeanswer_set.create(answer_text=defi)
+
+    def delete_dupe(self, word, defi):
+        question = Question.objects.filter(question_text=word)[0]
+        if question.dupeanswer_set.filter(answer_text=defi).exists():
+            question.dupeanswer_set.filter(answer_text=defi)[0].delete()
+
+    def reset_dupe(self):
+        DupeAnswer.objects.all().delete()

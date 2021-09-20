@@ -6,11 +6,12 @@ from .models import Question, Answer
 
 class MCForm(Form):
     choice = forms.CharField()
+    correct = forms.CharField()
 
 
 class TextForm(Form):
     ans = forms.CharField(max_length=50)
-
+    correct = forms.CharField()
 
 class FileForm(Form):
     file = forms.FileField()
