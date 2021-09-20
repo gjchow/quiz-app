@@ -13,8 +13,14 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE) # Deletes Answer if Question is deleted
     answer_text = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.answer_text
+
+
+class DupeAnswer(Answer):
 
     def __str__(self):
         return self.answer_text

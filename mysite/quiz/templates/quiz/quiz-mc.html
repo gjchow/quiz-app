@@ -14,8 +14,9 @@
                 <form action="{% url 'quiz:check-ans' given=word quiz='mc' %}" method="post" id="question-form">
                     {% csrf_token %}
                     {% for choice in choices %}
-                        <input type="button" name="choice" class="button mc-button" value="{{ choice }}" id="{{ forloop.counter0 }}">
+                        <input type="button" class="button mc-button" value="{{ choice }}" id="{{ forloop.counter0 }}">
                     {% endfor %}
+                    <input type="text" name="choice" id="real-ans" hidden>
                 </form>
             {% else %}
                 <p class="question">There are no questions added.</p>

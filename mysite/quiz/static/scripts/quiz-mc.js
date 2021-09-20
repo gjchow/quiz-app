@@ -7,9 +7,10 @@ $(document).ready(function(){
             $("#"+this.id).addClass("wrong");
         }
         $("#"+ans).addClass("correct");
+        $("#real-ans").val(this.value);
         setTimeout(
             function(){
-                $("#question-form").submit();
+               $("#question-form").submit();
             }, 1000);
         });
 });

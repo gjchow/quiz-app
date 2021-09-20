@@ -73,43 +73,40 @@ def search_list(request, search):
 
 def quiz_mc(request):
     info = Information()
-    word = info.get_word()
-    if word is not None:
-        choices = info.get_defs(4, word)
-        ans_ind = info.get_ans_index(word, choices)
-        context = {'word': word, 'choices': choices, 'ans_ind': ans_ind}
-    else:
-        context = {'word': word}
+    word, choices = info.get_question(4)
+    ans_ind = info.get_ans_index(word, choices)
+    context = {'word': word, 'choices': choices, 'ans_ind': ans_ind}
     return render(request, 'quiz/quiz-mc.html', context)
 
 
 def quiz_text(request):
     info = Information()
-    word = info.get_word()
-    if word is not None:
-        choices = info.get_defs(1, word)
-        context = {'word': str(word), 'choices': choices}
-    else:
-        context = {'word': word}
+    word, choices = info.get_question(1)
+    context = {'word': str(word), 'choices': choices}
     return render(request, 'quiz/quiz-text.html', context)
 
 
 def check_ans(request, quiz, given):
     info = Information()
     if request.method == 'POST':
-
         if quiz == 'mc':
             form = forms.MCForm(request.POST)
+            print(form)
             if form.is_valid():
                 val = form.cleaned_data["choice"]
-                result = info.check_answer(str(given), val)
+                result = info.check_answer(given, val)
+                print(result)
+                print(given, val)
             return HttpResponseRedirect(reverse('quiz:quiz-mc'))
 
         if quiz == 'text':
             form = forms.TextForm(request.POST)
+            print(form)
             if form.is_valid():
                 val = form.cleaned_data["ans"]
                 result = info.check_answer(val, str(given))
+                print(result)
+                print(given, val)
             return HttpResponseRedirect(reverse('quiz:quiz-text'))
 
 

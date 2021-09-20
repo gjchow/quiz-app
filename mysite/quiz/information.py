@@ -3,7 +3,7 @@ import random
 from django.utils import timezone
 from django.db.models import Max
 
-from .models import Question, Answer
+from .models import Question, Answer, DupeAnswer
 
 
 class Information:
@@ -41,7 +41,7 @@ class Information:
                 info[word] = defs
         return info
 
-    def get_word(self, excl='') -> Question:
+    def _get_word(self, excl='') -> Question:
         # return a random key from info
         num = Question.objects.exclude(question_text=excl).count()
         if num > 0:
@@ -51,7 +51,7 @@ class Information:
 
         return word
 
-    def get_defs(self, num: int, q: Question) -> list[Answer]:
+    def _get_defs(self, num: int, q: Question) -> list[Answer]:
         # returns num options including at least one for the word
         defs = []
         c = q.answer_set.count()
@@ -59,7 +59,7 @@ class Information:
         defs.append(q.answer_set.all()[random.randrange(c)])
 
         for _ in range(num - 1):
-            pick = self.get_word(q.question_text)
+            pick = self._get_word(q.question_text)
             c = pick.answer_set.count()
             defs.append(pick.answer_set.all()[random.randrange(c)])
 
@@ -67,7 +67,23 @@ class Information:
 
         return defs
 
-    def check_answer(self, word: str, answer: str) -> bool:
+    def get_question(self, num: int) -> tuple[Question, list[Answer]]:
+        word = None
+        choices = []
+        if DupeAnswer.objects.all().exists():
+            roll = random.randrange(10)
+            if roll < 2:
+                c = DupeAnswer.objects.all().count()
+                da = DupeAnswer.objects.all()[random.randrange(c)]
+                word = da.Question
+                choices.append(da)
+                choices.extend(self._get_defs(num-1, word))
+        else:
+            word = self._get_word()
+            choices = self._get_defs(num, word)
+        return word, choices
+
+    def check_answer(self, word: Question, answer: str) -> bool:
         qs = Question.objects.filter(question_text=word)
         if not qs:
             return False
@@ -78,13 +94,13 @@ class Information:
 
         return False
 
-    def get_ans_index(self, word: str,  answers: list[Answer]):
+    def get_ans_index(self, word: Question,  answers: list[Answer]):
         for i in range(len(answers)):
             if self.check_answer(word, str(answers[i])):
                 return i
         return -1
 
-    def add_data(self, info):
+    def add_data(self, info: dict[str: list[str]]) -> tuple[int, int, str]:
         added = 0
         edited = 0
         add_word = None
@@ -103,12 +119,12 @@ class Information:
                 add_word = word
         return added, edited, add_word
 
-    def handle_file(self, f):
+    def handle_file(self, f) -> tuple[int, int, str]:
         info = self.get_info_txt(f)
         added, edited, add_word = self.add_data(info)
         return added, edited, add_word
 
-    def update_word(self, word, defs):
+    def update_word(self, word: str, defs: list[str]) -> None:
         if Question.objects.filter(question_text=word).exists():
             quest = Question.objects.filter(question_text=word)[0]
             quest.answer_set.all().delete()
@@ -116,6 +132,9 @@ class Information:
                 if not quest.answer_set.all().filter(answer_text=defi).exists():
                     quest.answer_set.create(answer_text=defi)
 
-    def delete_word(self, pk):
+    def delete_word(self, pk: int) -> None:
         if Question.objects.filter(pk=pk).exists():
             Question.objects.filter(pk=pk).delete()
+
+    def dupe_answer(self, word, defi):
+        pass
