@@ -33,9 +33,17 @@
                 {% endif %}
 
                 <span class="current page">
-                    <form action="{% url 'quiz:list' %}" method="get" class="page-number">
-                        <input type="text" name="page" class="page-number" value="{{ page_obj.number }}" autocomplete="off">
-                    </form>
+                    {% if search %}
+                        <form action="{% url 'quiz:search' search=search %}" method="get" class="page-number">
+                            {% csrf_token %}
+                            <input type="text" name="page" class="page-number" value="{{ page_obj.number }}" autocomplete="off">
+                        </form>
+                    {% else %}
+                        <form action="{% url 'quiz:list' %}" method="get" class="page-number">
+                            <input type="text" name="page" class="page-number" value="{{ page_obj.number }}" autocomplete="off">
+                        </form>
+                    {% endif %}
+
                      of {{ page_obj.paginator.num_pages }}
                 </span>
 
