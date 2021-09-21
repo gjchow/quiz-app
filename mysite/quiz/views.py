@@ -75,8 +75,8 @@ def search_list(request, search):
 def quiz_mc(request):
     info = Information()
     word, choices = info.get_question(4)
-    if settings.DEBUG:
-        print(word, choices)
+    # if settings.DEBUG:
+    #     print(word, choices)
     ans_ind = info.get_ans_index(word, choices)
     context = {'word': word, 'choices': choices, 'ans_ind': ans_ind}
     return render(request, 'quiz/quiz-mc.html', context)
@@ -85,8 +85,8 @@ def quiz_mc(request):
 def quiz_text(request):
     info = Information()
     word, choices = info.get_question(1)
-    if settings.DEBUG:
-        print(word, choices)
+    # if settings.DEBUG:
+    #     print(word, choices)
     context = {'word': str(word), 'choices': choices}
     return render(request, 'quiz/quiz-text.html', context)
 
@@ -104,9 +104,9 @@ def check_ans(request, quiz, given):
                     info.dupe_answer(given, correct)
                 else:
                     info.delete_dupe(given, correct)
-                if settings.DEBUG:
-                    print(result)
-                    print(given, val)
+                # if settings.DEBUG:
+                #     print(result)
+                #     print(given, val)
             return HttpResponseRedirect(reverse('quiz:quiz-mc'))
 
         if quiz == 'text':
@@ -119,9 +119,9 @@ def check_ans(request, quiz, given):
                     info.dupe_answer(correct, given)
                 else:
                     info.delete_dupe(correct, given)
-                if settings.DEBUG:
-                    print(result)
-                    print(val, given)
+                # if settings.DEBUG:
+                #     print(result)
+                #     print(val, given)
             return HttpResponseRedirect(reverse('quiz:quiz-text'))
 
 

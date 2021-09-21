@@ -78,31 +78,31 @@ class Information:
             return word, choices
         if DupeAnswer.objects.all().exists():
             roll = random.randrange(10)
-            if settings.DEBUG:
-                print('Exists')
-                print(roll)
+            # if settings.DEBUG:
+            #     print('Exists')
+            #     print(roll)
             if roll < 2:
                 c = DupeAnswer.objects.all().count()
                 da = DupeAnswer.objects.all()[random.randrange(c)]
                 word = da.question
                 choices.append(da)
                 choices.extend(self._get_defs(num-1, word))
-                random.shuffle(choices)
             else:
                 word = self._get_word()
                 choices = self._get_word_def(word)
                 choices.extend(self._get_defs(num-1, word))
         else:
-            if settings.DEBUG:
-                print('DNE')
+            # if settings.DEBUG:
+            #     print('DNE')
             word = self._get_word()
             choices = self._get_word_def(word)
             choices.extend(self._get_defs(num - 1, word))
+        random.shuffle(choices)
         return word, choices
 
     def check_answer(self, word: str, answer: str) -> bool:
-        if settings.DEBUG:
-            print('Check: ', DupeAnswer.objects.all())
+        # if settings.DEBUG:
+        #     print('Check: ', DupeAnswer.objects.all())
         qs = Question.objects.filter(question_text=word)
         if not qs:
             return False
