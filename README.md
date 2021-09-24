@@ -10,9 +10,9 @@ For example: <br>
 
 To view all the words go to the **View** page. Clicking on a word will bring you to the word and the definitions, where you can edit the definitions or delete the word.
 
-The **MC** page will show a word and 4 buttons, each with a definition on it. Select the one with the correct definition on it. Upon selection the correct answer will show up green and an incorrect answer will be red.
+The **MC Quiz** page will show a word and 4 buttons, each with a definition on it. Select the one with the correct definition on it. Upon selection the correct answer will show up green and an incorrect answer will be red.
 
-The **Text** page will show a definition and a textbox. Enter the word into the textbox. If the answer is correct the textbox will be green amd an incorrect answer will be red.
+The **Text Quiz** page will show a definition and a textbox. Enter the word into the textbox. If the answer is correct the textbox will be green amd an incorrect answer will be red.
 
 To start:
 - `clone repo`

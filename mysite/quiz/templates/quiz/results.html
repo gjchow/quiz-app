@@ -1,6 +1,10 @@
 {% load static %}
 <head>
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}" xmlns="http://www.w3.org/1999/html">
+    {% if theme == 'dark' %}
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/dark.css' %}">
+    {% else %}
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/style.css' %}">
+    {% endif %}
 </head>
 <body>
     {% include 'quiz/header.html' %}

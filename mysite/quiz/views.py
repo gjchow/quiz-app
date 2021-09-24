@@ -4,15 +4,18 @@ from django.forms import formset_factory, model_to_dict
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.views import generic
 
 from . import forms
 from .information import Information
 from .models import Question
 
+THEME = 'light'
 
-class IndexView(generic.TemplateView):
+
+def index(request):
     template_name = 'quiz/index.html'
+    context = {'theme': THEME}
+    return render(request, template_name, context)
 
 
 def detail(request, pk):
@@ -32,7 +35,7 @@ def detail(request, pk):
     for ans in question.answer_set.all():
         answers.append(model_to_dict(ans, fields='answer_text'))
     formseta = AnswerFormSet(initial=answers)
-    context = {'question': question, 'formseta': formseta}
+    context = {'question': question, 'formseta': formseta, 'theme': THEME}
     return render(request, 'quiz/detail.html', context)
 
 
@@ -56,7 +59,7 @@ def listing(request):
     template_name = 'quiz/results.html'
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {'page_obj': page_obj}
+    context = {'page_obj': page_obj, 'theme': THEME}
 
     return render(request, template_name, context)
 
@@ -67,7 +70,7 @@ def search_list(request, search):
     template_name = 'quiz/results.html'
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    context = {'page_obj': page_obj, 'search': search}
+    context = {'page_obj': page_obj, 'search': search, 'theme': THEME}
 
     return render(request, template_name, context)
 
@@ -78,7 +81,7 @@ def quiz_mc(request):
     # if settings.DEBUG:
     #     print(word, choices)
     ans_ind = info.get_ans_index(word, choices)
-    context = {'word': word, 'choices': choices, 'ans_ind': ans_ind}
+    context = {'word': word, 'choices': choices, 'ans_ind': ans_ind, 'theme': THEME}
     return render(request, 'quiz/quiz-mc.html', context)
 
 
@@ -87,7 +90,7 @@ def quiz_text(request):
     word, choices = info.get_question(1)
     # if settings.DEBUG:
     #     print(word, choices)
-    context = {'word': str(word), 'choices': choices}
+    context = {'word': str(word), 'choices': choices, 'theme': THEME}
     return render(request, 'quiz/quiz-text.html', context)
 
 
@@ -130,14 +133,14 @@ def add_new(request):
     AnswerFormSet = formset_factory(forms.AnswerForm, extra=0, max_num=10, min_num=1, validate_min=True)
     nformq = forms.QuestionForm()
     nformseta = AnswerFormSet()
-    context = {'formseta': nformseta, 'formq': nformq}
+    context = {'formseta': nformseta, 'formq': nformq, 'theme': THEME}
     if request.method == 'POST':
         formq = forms.QuestionForm(request.POST)
         formseta = AnswerFormSet(request.POST)
         formfile = forms.FileForm(request.POST, request.FILES)
         if formfile.is_valid():
             num, created, add_word = info.handle_file(request.FILES['file'])
-            context = {'num': num, 'created': created, 'formseta': nformseta, 'formq': nformq}
+            context = {'num': num, 'created': created, 'formseta': nformseta, 'formq': nformq, 'theme': THEME}
         if formq.is_valid() and formseta.is_valid():
             answers = []
             question = formq.cleaned_data['question_text']
@@ -147,5 +150,5 @@ def add_new(request):
                     answers.append(answer)
             data = {question: answers}
             num, created, add_word = info.add_data(data)
-            context = {'add_word': add_word, 'formseta': nformseta, 'formq': nformq}
+            context = {'add_word': add_word, 'formseta': nformseta, 'formq': nformq, 'theme': THEME}
     return render(request, 'quiz/add-new.html', context)
