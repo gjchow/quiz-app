@@ -12,4 +12,5 @@ urlpatterns = [
     path('check-ans/<str:quiz>/<str:given>/', views.check_ans, name='check-ans'),
     path('add-new/', views.add_new, name='add-new'),
     path('delete/<int:pk>/', views.delete, name='delete'),
+    path('accounts/signup/', views.signup, name='signup'),
 ]

@@ -1,6 +1,7 @@
 import random
 
 from django.conf import settings
+from django.contrib.auth.models import User
 
 from .models import Question, Answer, DupeAnswer
 
@@ -10,6 +11,8 @@ class Information:
     #     # fill out info
     #     # we can figure out using API or text file
     #     self.get_info_txt('test.txt')
+    def __init__(self, user: User):
+        self.user = user
 
     def get_info_txt(self, file):
         info = {}
@@ -42,9 +45,9 @@ class Information:
 
     def _get_word(self, excl='') -> Question:
         # return a random key from info
-        num = Question.objects.exclude(question_text=excl).count()
+        num = self.user.question_set.all().exclude(question_text=excl).count()
         if num > 0:
-            word = Question.objects.exclude(question_text=excl)[random.randrange(num)]
+            word = self.user.question_set.all().exclude(question_text=excl)[random.randrange(num)]
         else:
             word = None
 
@@ -74,16 +77,18 @@ class Information:
     def get_question(self, num: int) -> tuple[Question, list[Answer]]:
         word = None
         choices = []
-        if num > Question.objects.all().count():
+        if num > self.user.question_set.all().count():
             return word, choices
-        if DupeAnswer.objects.all().exists():
+        dupe_set = DupeAnswer.objects.all().filter(question__user=self.user)
+        if DupeAnswer.objects.all().filter(question__user=self.user).exists():
             roll = random.randrange(10)
             # if settings.DEBUG:
             #     print('Exists')
             #     print(roll)
             if roll < 2:
-                c = DupeAnswer.objects.all().count()
-                da = DupeAnswer.objects.all()[random.randrange(c)]
+                dupe_set = DupeAnswer.objects.all().filter(question__user=self.user)
+                c = dupe_set.count()
+                da = dupe_set[random.randrange(c)]
                 word = da.question
                 choices.append(da)
                 choices.extend(self._get_defs(num-1, word))
@@ -103,7 +108,7 @@ class Information:
     def check_answer(self, word: str, answer: str) -> bool:
         # if settings.DEBUG:
         #     print('Check: ', DupeAnswer.objects.all())
-        qs = Question.objects.filter(question_text=word)
+        qs = self.user.question_set.all().filter(question_text=word)
         if not qs:
             return False
 
@@ -124,11 +129,11 @@ class Information:
         edited = 0
         add_word = None
         for word in info:
-            if Question.objects.filter(question_text=word).exists():
-                new = Question.objects.filter(question_text=word)[0]
+            if self.user.question_set.all().filter(question_text=word).exists():
+                new = self.user.question_set.all().filter(question_text=word)[0]
                 added += 1
             else:
-                new = Question(question_text=word)
+                new = Question(question_text=word, user=self.user)
                 new.save()
                 edited += 1
             for defs in info[word]:
@@ -144,25 +149,27 @@ class Information:
         return added, edited, add_word
 
     def update_word(self, word: str, defs: list[str]) -> None:
-        if Question.objects.filter(question_text=word).exists():
-            quest = Question.objects.filter(question_text=word)[0]
+        if self.user.question_set.all().filter(question_text=word).exists():
+            quest = self.user.question_set.all().filter(question_text=word)[0]
             quest.answer_set.all().delete()
             for defi in defs:
                 if not quest.answer_set.all().filter(answer_text=defi).exists():
                     quest.answer_set.create(answer_text=defi)
 
     def delete_word(self, pk: int) -> None:
-        if Question.objects.filter(pk=pk).exists():
-            Question.objects.filter(pk=pk).delete()
+        if self.user.question_set.all().filter(pk=pk).exists():
+            self.user.question_set.all().filter(pk=pk).delete()
 
     def dupe_answer(self, word, defi):
-        question = Question.objects.filter(question_text=word)[0]
+        question = self.user.question_set.all().filter(question_text=word)[0]
         question.dupeanswer_set.create(answer_text=defi)
 
     def delete_dupe(self, word, defi):
-        question = Question.objects.filter(question_text=word)[0]
+        question = self.user.question_set.all().filter(question_text=word)[0]
         if question.dupeanswer_set.filter(answer_text=defi).exists():
             question.dupeanswer_set.filter(answer_text=defi)[0].delete()
 
     def reset_dupe(self):
-        DupeAnswer.objects.all().delete()
+        dupe_set = DupeAnswer.objects.all().filter(question__user=self.user)
+        print(dupe_set)
+        print(DupeAnswer.objects.all())

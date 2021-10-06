@@ -35,3 +35,8 @@ class AnswerForm(ModelForm):
     class Meta:
         model = Answer
         fields = ['answer_text']
+
+
+class UserForm(Form):
+    username = forms.CharField(max_length=50)
+    password = forms.CharField(max_length=50)
